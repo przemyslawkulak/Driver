@@ -12,6 +12,9 @@ ANSWERS = (
 class Tag(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return f' {self.name}'
+
 
 class Advice(models.Model):
     title = models.CharField(max_length=255)
@@ -23,12 +26,18 @@ class Advice(models.Model):
     # score = models.IntegerField()
     tag = models.ManyToManyField(Tag)
 
+    def __str__(self):
+        return f' {self.title}'
+
 
 class Training(models.Model):
     name = models.CharField(max_length=255)
     advice = models.ForeignKey(Advice, on_delete=models.CASCADE, )
     tag = models.ManyToManyField(Tag)
     total_score = models.IntegerField()
+
+    def __str__(self):
+        return f' {self.name}'
 
 
 class Question(models.Model):
@@ -44,6 +53,8 @@ class Question(models.Model):
     tag = models.ManyToManyField(Tag)
     score = models.IntegerField()
 
+    def __str__(self):
+        return f' {self.question}'
 
 class MyUser(AbstractUser):
     user_score = models.IntegerField(null=True)
@@ -53,5 +64,10 @@ class MyUser(AbstractUser):
 
 
 class Message(models.Model):
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    content = models.TextField()
+
+
+    def __str__(self):
+        return f' {self.title}'
