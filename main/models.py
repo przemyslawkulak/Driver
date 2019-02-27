@@ -48,6 +48,9 @@ class Question(models.Model):
 class MyUser(AbstractUser):
     user_score = models.IntegerField()
 
+    def __str__(self):
+        return f' {self.username}'
+
 
 class Message(models.Model):
     name = models.CharField(max_length=255)
