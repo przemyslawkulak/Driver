@@ -20,6 +20,9 @@ from main.views import TagList, TagView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'tag/', TagList.as_view()),
-    re_path(r'tag/(?P<id>(\d)+)/', TagView.as_view())
+
+    path(r'tag/', TagList.as_view(), name='taglist'),
+    re_path(r'tag/(?P<pk>(\d)+)/', TagView.as_view(), name='tagview'),
+
+
 ]

@@ -3,10 +3,16 @@ from rest_framework import serializers
 from main.models import Tag, Advice, Training, Question, MyUser, Message
 
 
-class TagSerializer(serializers.ModelSerializer):
+class TagSerializer(serializers.HyperlinkedModelSerializer):
+
+    url = serializers.HyperlinkedIdentityField(
+        view_name='tagview',  # nazwa url-a szczegółów taga(name='tagview')
+        lookup_field='pk'
+    )
+
     class Meta:
         model = Tag
-        fields = "__all__"
+        fields = ('url', 'id', 'name',)  # bez dopisania url do listy, link pojawiłby się zamiast wartości id
 
 
 class AdviceSerializer(serializers.ModelSerializer):

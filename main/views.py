@@ -31,31 +31,31 @@ class TagList(APIView):
 
 class TagView(APIView):
 
-    def get_object(self, id):
+    def get_object(self, pk):
         try:
-            return Tag.objects.get(id=id)
+            return Tag.objects.get(pk=pk)
         except Tag.DoesNotExist:
             raise Http404
 
-    def get(self, request, id, format=None):
-        tag = self.get_object(id)
+    def get(self, request, pk, format=None):
+        tag = self.get_object(pk)
         serializer = TagSerializer(tag, context={"request": request})
         return Response(serializer.data)
 
-    def delete(self, request, id, format=None):
-        tag = self.get_object(id)
+    def delete(self, request, pk, format=None):
+        tag = self.get_object(pk)
         tag.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def put(self, request, id, format=None):
-        tag = self.get_object(id)
+    def put(self, request, pk, format=None):
+        tag = self.get_object(pk)
         serializer = TagSerializer(tag, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, id, format=None):
+    def post(self, request, pk, format=None):
         pass
 
 ###########################################################################################################
