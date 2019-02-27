@@ -20,7 +20,7 @@ class Advice(models.Model):
     img = models.ImageField(blank=True, null=True)
     film = models.FileField(upload_to='videos/', null=True)
     description = models.TextField()
-    score = models.IntegerField()
+    # score = models.IntegerField()
     tag = models.ManyToManyField(Tag)
 
 
@@ -46,7 +46,7 @@ class Question(models.Model):
 
 
 class MyUser(AbstractUser):
-    user_score = models.IntegerField()
+    user_score = models.IntegerField(null=True)
 
     def __str__(self):
         return f' {self.username}'
