@@ -80,14 +80,14 @@ class TrainingViewSet(viewsets.ModelViewSet):
     serializer_class = TrainingSerializer
 
 ###########################################################################################################
-# TrainingView
+# QuestionViewSet
 
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
 ###########################################################################################################
-# TrainingView
+# MessageViewSet
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
@@ -95,7 +95,7 @@ class MessageViewSet(viewsets.ModelViewSet):
 
 
 ###########################################################################################################
-# TrainingView
+# MyUserViewSet
 
 class MyUserViewSet(viewsets.ModelViewSet):
     queryset = MyUser.objects.all()

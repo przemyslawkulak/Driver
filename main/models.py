@@ -35,6 +35,7 @@ class Training(models.Model):
     advice = models.ForeignKey(Advice, on_delete=models.CASCADE, )
     tag = models.ManyToManyField(Tag)
     total_score = models.IntegerField()
+    user_done = models.ManyToManyField('MyUser')
 
     def __str__(self):
         return f' {self.name}'
@@ -56,6 +57,7 @@ class Question(models.Model):
     def __str__(self):
         return f' {self.question}'
 
+
 class MyUser(AbstractUser):
     user_score = models.IntegerField(null=True)
 
@@ -66,8 +68,8 @@ class MyUser(AbstractUser):
 class Message(models.Model):
     title = models.CharField(max_length=255)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    content = models.TextField()
-
+    content = models.TextField(null=True)
+    relates_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f' {self.title}'
