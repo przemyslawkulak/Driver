@@ -53,6 +53,7 @@ class Question(models.Model):
     correct_answer = models.IntegerField(choices=ANSWERS)
     tag = models.ManyToManyField(Tag)
     score = models.IntegerField()
+    # ew. pole do trzymania informacji o tym jakie odpowiedzi dał użytkownik
 
     def __str__(self):
         return f' {self.question}'

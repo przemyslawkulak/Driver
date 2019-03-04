@@ -10,6 +10,18 @@ from main.models import Tag, Advice, Training, Question, Message, MyUser
 from main.serializers import TagSerializer, AdviceSerializer, TrainingSerializer, QuestionSerializer, MessageSerializer, \
     MyUserSerializer
 
+# 3(5) losowych porad
+# lista pytań na zasadzie porady ( razem z poradą informacja czy wszystkie treningi do porady są zaliczone )
+# pobierz trening do porady (wysyłanie pierwszego treningu w bazie)
+# weryfikacja odpowiedzi (przesyłane, id pytania, odpowiedź -> zwracam 201/202) - weryfikować wszytkie odopwiedzi na raz
+# wysłanie wiadmosci na forum (albo rekurencją albo Django MPTT)
+# widok wysylający wszystkie porady związane z danym tagiem
+
+# Token JWT -
+# zapytania w curl - stworzenie nowej apki do sprawdzania zapytan API
+# testy - warsztaty 6
+# w readme - testy, aplikacja kliencka, endpointy,
+
 
 ####################################################################################################
 # TagView
@@ -61,6 +73,7 @@ class TagViewSet(viewsets.ModelViewSet):
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #
 #     def post(self, request, pk, format=None):
+#
 #         pass
 
 
@@ -88,6 +101,8 @@ class QuestionViewSet(viewsets.ModelViewSet):
 
 ###########################################################################################################
 # MessageViewSet
+
+# Django MPTT - klasa do budowania drzewa
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
