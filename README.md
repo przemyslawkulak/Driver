@@ -15,11 +15,11 @@ $ pip install -r Requirements.txt
 create file local_settings.py with your local configuration:  
 DATABASES = {  
        'default': {  
-           'HOST': 'localhost', 
-           'NAME': 'your_db_name',  
-           'ENGINE': 'django.db.backends.postgresql_psycopg2',  
-           'USER': 'username',  
-           'PASSWORD': 'password',  
+              'HOST': 'localhost', 
+             'NAME': 'your_db_name',  
+              'ENGINE': 'django.db.backends.postgresql_psycopg2',  
+              'USER': 'username',  
+              'PASSWORD': 'password',  
        }  
    }  
    
