@@ -1,13 +1,9 @@
-##Driver  
-Portfolio lab project - description in progress...
+# Driver - Rest Api project
+Portfolio lab project 
 
-25.02.2019 - what is working:  
+
 in progress  
-To-Do-List:  
-in progress  
-Known issues:  
-Donates Validation  
-probably much more than that...  
+
 Download and use it in your local environment:  
 Fork repository  
 Clone it into your computer  
