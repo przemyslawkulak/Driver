@@ -4,7 +4,6 @@ from main.models import Tag, Advice, Training, Question, MyUser, Message
 
 
 class TagSerializer(serializers.HyperlinkedModelSerializer):
-
     # url = serializers.HyperlinkedIdentityField(
     #     view_name='tagview',  # nazwa url-a szczegółów taga(name='tagview')
     #     lookup_field='pk'
@@ -43,3 +42,13 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Message
         fields = "__all__"
+
+
+class AllQuestionSerializer(serializers.ModelField):
+    child = TrainingSerializer(read_only=True)
+    child_id = serializers.PrimaryKeyRelatedField(
+        queryset=Training.objects.all(), source='training', write_only=True)
+
+    class Meta:
+        model = Question
+        fields = "__al__"

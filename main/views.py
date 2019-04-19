@@ -1,9 +1,12 @@
 # Create your views here.
+from django.http import  Http404
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from main.models import Tag, Advice, Training, Question, Message, MyUser
-from main.serializers import TagSerializer, AdviceSerializer, TrainingSerializer, QuestionSerializer, MessageSerializer, \
-    MyUserSerializer
+from main.serializers import TagSerializer, AdviceSerializer, TrainingSerializer, MyUserSerializer, \
+    MessageSerializer, QuestionSerializer, AllQuestionSerializer
 
 
 # 3(5) losowych porad
@@ -114,3 +117,50 @@ class MessageViewSet(viewsets.ModelViewSet):
 class MyUserViewSet(viewsets.ModelViewSet):
     queryset = MyUser.objects.all()
     serializer_class = MyUserSerializer
+
+
+class RandomAdviceViewSet(viewsets.ModelViewSet):
+    if len(Advice.objects.all()) > 3:
+        queryset = Advice.objects.all().order_by('?')[:3]
+    else:
+        queryset = Advice.objects.all()
+    serializer_class = AdviceSerializer
+
+
+# class AllQuestionsToAdviceView(mixins.RetrieveModelMixin,
+#                                mixins.ListModelMixin,
+#                                GenericViewSet):
+#
+#
+#     permission_classes = []
+#     training = Training.objects.filter(advice=Advice.objects.filter(id=pk))
+#     queryset = Question.objects.filter()
+#     serializer_class = QuestionSerializer
+
+class AllQuestionsToAdviceView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Training.objects.get(pk=pk)
+        except Training.DoesNotExist:
+            raise Http404
+
+    def get(self, request, format=None, pk=1):
+        # training = Training.objects.get(advice=self.get_object(pk))
+        queryset = Question.objects.filter(training=self.get_object(pk))
+        serializer = AllQuestionSerializer(queryset)
+        return Response(serializer.data)
+
+
+# class TagView(APIView):
+#
+#     def get_object(self, pk):
+#         try:
+#             return Tag.objects.get(pk=pk)
+#         except Tag.DoesNotExist:
+#             raise Http404
+#
+#     def get(self, request, pk, format=None):
+#         tag = self.get_object(pk)
+#         serializer = TagSerializer(tag, context={"request": request})
+#         return Response(serializer.data)

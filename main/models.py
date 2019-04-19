@@ -19,7 +19,7 @@ class Tag(models.Model):
 class Advice(models.Model):
     title = models.CharField(max_length=255)
     lead = models.CharField(max_length=255)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True)
     img = models.ImageField(blank=True, null=True)
     film = models.FileField(upload_to='videos/', null=True)
     description = models.TextField()
@@ -34,7 +34,7 @@ class Training(models.Model):
     name = models.CharField(max_length=255)
     advice = models.ForeignKey(Advice, on_delete=models.CASCADE, )
     tag = models.ManyToManyField(Tag)
-    total_score = models.IntegerField()
+    total_score = models.IntegerField(default=10)
     user_done = models.ManyToManyField('MyUser')
 
     def __str__(self):
@@ -57,6 +57,7 @@ class Question(models.Model):
 
     def __str__(self):
         return f' {self.question}'
+
 
 
 class MyUser(AbstractUser):

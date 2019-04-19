@@ -18,6 +18,7 @@ from django.urls import path, re_path, include
 
 from driver.api import router
 # from main.views import TagList, TagView
+from main.views import AllQuestionsToAdviceView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +26,6 @@ urlpatterns = [
     # path(r'tag/', TagList.as_view(), name='taglist'),
     # re_path(r'tag/(?P<pk>(\d)+)/', TagView.as_view(), name='tagview'),
 
-    re_path(r'^api/v1/', include(router.urls))
+    re_path(r'^api/v1/', include(router.urls)),
+    re_path(r'^api/v1/all-questions/(?P<pk>[^/.]+)/$', AllQuestionsToAdviceView.as_view(), name='all_questions')
 ]

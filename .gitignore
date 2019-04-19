@@ -159,3 +159,10 @@ fabric.properties
 .idea/httpRequests
 
 driver/local_settings.py
+snipets_api
+.idea/Driver.iml
+.idea/dataSources.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
