@@ -60,7 +60,7 @@ class Question(models.Model):
 
 
 class MyUser(AbstractUser):
-    user_score = models.IntegerField(null=True)
+    user_score = models.IntegerField(default=0)
 
     def __str__(self):
         return f' {self.username}'

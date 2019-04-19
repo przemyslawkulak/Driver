@@ -1,14 +1,10 @@
-from django.http import Http404
-from django.shortcuts import render
-
 # Create your views here.
-from rest_framework import status, viewsets
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import viewsets
 
 from main.models import Tag, Advice, Training, Question, Message, MyUser
 from main.serializers import TagSerializer, AdviceSerializer, TrainingSerializer, QuestionSerializer, MessageSerializer, \
     MyUserSerializer
+
 
 # 3(5) losowych porad
 # lista pytań na zasadzie porady ( razem z poradą informacja czy wszystkie treningi do porady są zaliczone )
@@ -30,6 +26,7 @@ from main.serializers import TagSerializer, AdviceSerializer, TrainingSerializer
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
 
 # class TagList(APIView):
 #
@@ -92,12 +89,14 @@ class TrainingViewSet(viewsets.ModelViewSet):
     queryset = Training.objects.all()
     serializer_class = TrainingSerializer
 
+
 ###########################################################################################################
 # QuestionViewSet
 
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
 
 ###########################################################################################################
 # MessageViewSet

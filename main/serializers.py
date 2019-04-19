@@ -36,7 +36,7 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
 class MyUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MyUser
-        fields = ('url', 'id', 'username', 'email', 'last_login', 'date_joined', 'is_superuser')
+        fields = ('url', 'id', 'username', 'email', 'last_login', 'date_joined', 'is_superuser', 'user_score')
 
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
