@@ -1,6 +1,7 @@
 # Create your views here.
-from django.http import  Http404
+from django.http import Http404
 from rest_framework import viewsets
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -127,30 +128,30 @@ class RandomAdviceViewSet(viewsets.ModelViewSet):
     serializer_class = AdviceSerializer
 
 
-# class AllQuestionsToAdviceView(mixins.RetrieveModelMixin,
-#                                mixins.ListModelMixin,
-#                                GenericViewSet):
+class AllQuestionsToAdviceView(ListAPIView):
+
+    def get_queryset(self, pk=1):
+        return Question.objects.all().filter(training=training[0], pk=question_pk)
+
+    permission_classes = []
+    # training = Training.objects.filter(advice=Advice.objects.filter(id=pk))
+    # queryset = Question.objects.filter()
+    serializer_class = QuestionSerializer
+
+# class AllQuestionsToAdviceView(APIView):
+#
+#     def get_object(self, pk=1):
+#         try:
+#             return Training.objects.get(pk=pk)
+#         except Training.DoesNotExist:
+#             raise Http404
 #
 #
-#     permission_classes = []
-#     training = Training.objects.filter(advice=Advice.objects.filter(id=pk))
-#     queryset = Question.objects.filter()
-#     serializer_class = QuestionSerializer
-
-class AllQuestionsToAdviceView(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Training.objects.get(pk=pk)
-        except Training.DoesNotExist:
-            raise Http404
-
-    def get(self, request, format=None, pk=1):
-        # training = Training.objects.get(advice=self.get_object(pk))
-        queryset = Question.objects.filter(training=self.get_object(pk))
-        serializer = AllQuestionSerializer(queryset)
-        return Response(serializer.data)
-
+#     def get(self, request, format=None, pk=1):
+#         # training = Training.objects.get(advice=self.get_object(pk))
+#         queryset = Question.objects.filter(training=self.get_object(pk))
+#         serializer = AllQuestionSerializer(queryset, context={"request": request})
+#         return Response(serializer.data)
 
 # class TagView(APIView):
 #

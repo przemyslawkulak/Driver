@@ -44,11 +44,11 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class AllQuestionSerializer(serializers.ModelField):
+class AllQuestionSerializer(serializers.HyperlinkedModelSerializer):
     child = TrainingSerializer(read_only=True)
     child_id = serializers.PrimaryKeyRelatedField(
         queryset=Training.objects.all(), source='training', write_only=True)
 
     class Meta:
         model = Question
-        fields = "__al__"
+        fields = "__all__"
