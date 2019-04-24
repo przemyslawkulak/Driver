@@ -1,17 +1,15 @@
 # Create your views here.
 from django.http import Http404
 from rest_framework import viewsets
-from rest_framework.generics import ListAPIView
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, get_object_or_404
 
 from main.models import Tag, Advice, Training, Question, Message, MyUser
 from main.serializers import TagSerializer, AdviceSerializer, TrainingSerializer, MyUserSerializer, \
-    MessageSerializer, QuestionSerializer, AllQuestionSerializer
+    MessageSerializer, QuestionSerializer
 
 
-# 3(5) losowych porad
-# lista pytań na zasadzie porady ( razem z poradą informacja czy wszystkie treningi do porady są zaliczone )
+# 3(5) losowych porad +
+# lista pytań na zasadzie porady (razem z poradą informacja czy wszystkie treningi do porady są zaliczone )
 # pobierz trening do porady (wysyłanie pierwszego treningu w bazie)
 # weryfikacja odpowiedzi (przesyłane, id pytania, odpowiedź -> zwracam 201/202) - weryfikować wszytkie odopwiedzi na raz
 # wysłanie wiadmosci na forum (albo rekurencją albo Django MPTT)
@@ -129,15 +127,18 @@ class RandomAdviceViewSet(viewsets.ModelViewSet):
 
 
 class AllQuestionsToAdviceView(ListAPIView):
-
-    def get_queryset(self, pk=1):
-        return Question.objects.all().filter(training=training[0], pk=question_pk)
+    def get_queryset(self):
+        try:
+            advice = get_object_or_404(Advice, pk=self.kwargs['pk'])
+            training = Training.objects.get(advice=advice)
+            return Question.objects.filter(training=training)
+        except Training.DoesNotExist:
+            raise Http404
 
     permission_classes = []
-    # training = Training.objects.filter(advice=Advice.objects.filter(id=pk))
-    # queryset = Question.objects.filter()
     serializer_class = QuestionSerializer
 
+# class TrainingFromAdvice
 # class AllQuestionsToAdviceView(APIView):
 #
 #     def get_object(self, pk=1):
