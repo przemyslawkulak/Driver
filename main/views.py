@@ -138,7 +138,16 @@ class AllQuestionsToAdviceView(ListAPIView):
     permission_classes = []
     serializer_class = QuestionSerializer
 
-# class TrainingFromAdvice
+
+# wyciągnąć jeden trening
+class TrainingFromAdvice(ListAPIView):
+    def get_queryset(self):
+        advice = get_object_or_404(Advice, pk=self.kwargs['pk'])
+        training = Training.objects.filter(advice=advice)
+        return training
+
+    serializer_class = TrainingSerializer
+
 # class AllQuestionsToAdviceView(APIView):
 #
 #     def get_object(self, pk=1):
